@@ -1,9 +1,11 @@
-import ProductListView from "./views/ProductListView";
+import ProductList from "./ProductList";
 
 function App() {
   return (
-    <ProductListView />
-  );
+    <>
+      <ProductList />
+    </>
+  )
 }
 
 export default App;
