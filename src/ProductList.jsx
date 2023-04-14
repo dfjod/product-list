@@ -107,17 +107,22 @@ function ProductList() {
   return (
     <>
       <header>
-        <div className="navbar">
+        <div className="nav">
           <h1>Product List</h1>
-          <a href="/product-add">ADD</a>
-          <button>MASS DELETE</button>
+          <div className="nav-buttons">
+            <a href="/product-add">ADD</a>
+            <button>MASS DELETE</button>
+          </div>
         </div>
       </header>
+      <hr />
       <main>
         <List products={data} />
       </main>
-      <hr />
-      <p>Scandiweb test assignment</p>
+      <footer>
+        <hr />
+        <p>Scandiweb test assignment</p>
+      </footer>
     </>
   );
 }

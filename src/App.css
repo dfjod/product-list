@@ -1,0 +1,30 @@
+.form-row {
+  margin-bottom: 10px;
+}
+
+.form-row > label {
+  margin-right: 10px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-buttons {
+  width: auto;
+}
+
+.nav-buttons > a {
+  margin-right: 20px;
+}
+
+#product-list {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.product {
+  border: solid 1px black;
+}
