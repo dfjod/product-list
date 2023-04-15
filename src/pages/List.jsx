@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-let List = ({ products }) => {
+let Products = ({ products }) => {
   const [checkedProducts, setCheckedProducts] = useState([]);
 
   const handleCheckboxChange = (event) => {
@@ -49,7 +50,7 @@ let List = ({ products }) => {
   );
 };
 
-function ProductList() {
+function List() {
   const data = [
     {
       id: 1,
@@ -109,15 +110,19 @@ function ProductList() {
       <header>
         <div className="nav">
           <h1>Product List</h1>
-          <div className="nav-buttons">
-            <a href="/product-add">ADD</a>
-            <button>MASS DELETE</button>
-          </div>
+          <ul>
+            <li>
+              <Link to="/product-add">ADD</Link>
+            </li>
+            <li>
+              <button>MASS DELETE</button>
+            </li>
+          </ul>
         </div>
       </header>
       <hr />
       <main>
-        <List products={data} />
+        <Products products={data} />
       </main>
       <footer>
         <hr />
@@ -127,4 +132,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default List;

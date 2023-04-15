@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 let SpecialAttribute = ({ type }) => {
@@ -39,8 +40,8 @@ let SpecialAttribute = ({ type }) => {
   }
 };
 
-function ProductAdd() {
-  const [type, setType] = useState(() => "");
+function Add() {
+  const [type, setType] = useState(null);
 
   const handleTypeChange = (event) => {
     const { value } = event.target;
@@ -53,7 +54,7 @@ function ProductAdd() {
         <div className="nav">
           <h1>Product Add</h1>
           <div className="nav-buttons">
-            <a href="/product-add">Cancel</a>
+            <Link to="/">Cancel</Link>
             <button>Save</button>
           </div>
         </div>
@@ -108,4 +109,4 @@ function ProductAdd() {
   );
 }
 
-export default ProductAdd;
+export default Add;
