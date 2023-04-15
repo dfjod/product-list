@@ -1,3 +1,18 @@
+.nav {
+  height: 10vh;
+  width: auto;
+}
+
+.body {
+  height: 80vh;
+  width: auto;
+}
+
+.footer {
+  height: 10vh;
+  width: auto;
+}
+
 .form-row {
   margin-bottom: 10px;
 }

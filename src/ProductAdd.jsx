@@ -1,31 +1,7 @@
 import { useState } from "react";
 
 let SpecialAttribute = ({ type }) => {
-  if (type == "DVD") {
-    return (
-      <div className="row">
-        <label htmlFor="size">Size (MB)</label>
-        <input type="text" id="size" />
-      </div>
-    );
-  } else if (type == "Furniture") {
-    return (
-      <>
-        <div className="row">
-          <label htmlFor="height">Size (MB)</label>
-          <input type="text" id="height" />
-        </div>
-        <div className="row">
-          <label htmlFor="width">Size (MB)</label>
-          <input type="text" id="width" />
-        </div>
-        <div className="row">
-          <label htmlFor="length">Size (MB)</label>
-          <input type="text" id="length" />
-        </div>
-      </>
-    );
-  } else {
+  if (type === "dvd") {
     return (
       <div className="row">
         <label htmlFor="size">Size (MB)</label>
@@ -33,10 +9,38 @@ let SpecialAttribute = ({ type }) => {
       </div>
     );
   }
+
+  if (type === "furniture") {
+    return (
+      <>
+        <div className="row">
+          <label htmlFor="height">Height (CM)</label>
+          <input type="text" id="height" />
+        </div>
+        <div className="row">
+          <label htmlFor="width">Width (CM)</label>
+          <input type="text" id="width" />
+        </div>
+        <div className="row">
+          <label htmlFor="length">Length (CM)</label>
+          <input type="text" id="length" />
+        </div>
+      </>
+    );
+  }
+
+  if (type === "book") {
+    return (
+      <div className="row">
+        <label htmlFor="size">Weight (KG)</label>
+        <input type="text" id="size" />
+      </div>
+    );
+  }
 };
 
 function ProductAdd() {
-  const [type, setType] = useState();
+  const [type, setType] = useState(() => "");
 
   const handleTypeChange = (event) => {
     const { value } = event.target;
@@ -53,45 +57,52 @@ function ProductAdd() {
             <button>Save</button>
           </div>
         </div>
-        <hr />
       </header>
+      <hr />
       <main>
-        <div id="form">
-          <form>
-            <div className="form-row">
-              <label for="sku">SKU</label>
-              <input type="text" id="sku" />
-            </div>
+        <div className="body">
+          <div id="form">
+            <form>
+              <div className="form-row">
+                <label htmlFor="sku">SKU</label>
+                <input type="text" id="sku" />
+              </div>
 
-            <div className="form-row">
-              <label for="name">Name</label>
-              <input type="text" id="name" />
-            </div>
+              <div className="form-row">
+                <label htmlFor="name">Name</label>
+                <input type="text" id="name" />
+              </div>
 
-            <div className="form-row">
-              <label htmlFor="price">Price($)</label>
-              <input type="text" id="price" />
-            </div>
+              <div className="form-row">
+                <label htmlFor="price">Price($)</label>
+                <input type="text" id="price" />
+              </div>
 
-            <div className="form-row">
-              <label htmlFor="productType">Type Switcher</label>
-              <select
-                name=""
-                id="productType"
-                onChange={}
-              >
-                <option value="dvd">DVD</option>
-                <option value="furniture">Furniture</option>
-                <option value="book">Book</option>
-              </select>
-              <SpecialAttribute selectedType={type} />
-            </div>
-          </form>
+              <div className="form-row">
+                <label htmlFor="productType">Type Switcher</label>
+                <select
+                  defaultValue="default"
+                  id="productType"
+                  onChange={handleTypeChange}
+                >
+                  <option value="default" disabled hidden>
+                    Type Switcher
+                  </option>
+                  <option value="dvd">DVD</option>
+                  <option value="furniture">Furniture</option>
+                  <option value="book">Book</option>
+                </select>
+                <SpecialAttribute type={type} />
+              </div>
+            </form>
+          </div>
         </div>
       </main>
+      <hr />
       <footer>
-        <hr />
-        <p>Scandiweb test assignment</p>
+        <div className="footer">
+          <p>Scandiweb test assignment</p>
+        </div>
       </footer>
     </>
   );
