@@ -4,25 +4,28 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import List from "./pages/List";
-import Add from "./pages/Add";
+import { List, productLoader } from "./pages/List";
+import { Add } from "./pages/Add";
+import { Outlet } from "react-router-dom";
 import "./App.css";
 
-function App() {
+export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <>
-        <Route path="/" index element={<List />} />
+      <Route path="/" element={<Root />}>
+        <Route index element={<List />} loader={productLoader} />
         <Route path="/product-add" element={<Add />} />
-      </>
+      </Route>
     )
   );
 
   return (
-    <div className="app-container">
+    <div id="app-container">
       <RouterProvider router={router} />
     </div>
   );
 }
 
-export default App;
+function Root() {
+  return <Outlet />;
+}
