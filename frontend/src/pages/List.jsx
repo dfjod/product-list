@@ -1,51 +1,6 @@
 import { useState } from "react";
 import { Link, useLoaderData } from "react-router-dom";
-
-export const productLoader = () => {
-  return fetch("http://localhost/productlist/index.php").then((response) =>
-    response.json()
-  );
-};
-
-const Product = ({ product }) => {
-  const extractAttributes = ({ special_values }) => {
-    const attributeArray = special_values.split(";");
-    const attributeObject = {};
-
-    attributeArray.map((attribute) => {
-      const [key, value] = attribute.split(":");
-      attributeObject[key] = value;
-    });
-    return attributeObject;
-  };
-
-  const setAttribute = (product) => {
-    const attributes = extractAttributes(product);
-
-    if (product.category_name == "furniture") {
-      return (
-        <p>
-          {attributes.height}X{attributes.width}X{attributes.length}
-        </p>
-      );
-    }
-    if (product.category_name == "dvd") {
-      return <p>{attributes.size} MB</p>;
-    }
-    if (product.category_name == "book") {
-      return <p>{attributes.weight} KG</p>;
-    }
-  };
-
-  return (
-    <>
-      <p>{product.sku}</p>
-      <p>{product.name}</p>
-      <p>{product.price} $</p>
-      {setAttribute(product)}
-    </>
-  );
-};
+import Product from "../components/Product";
 
 export function List() {
   let data = useLoaderData();
@@ -109,3 +64,9 @@ export function List() {
     </>
   );
 }
+
+export const productLoader = () => {
+  return fetch("http://localhost/productlist/backend/api/index.php").then(
+    (response) => response.json()
+  );
+};

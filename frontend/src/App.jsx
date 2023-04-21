@@ -14,7 +14,7 @@ export default function App() {
     createRoutesFromElements(
       <Route path="/" element={<Root />}>
         <Route index element={<List />} loader={productLoader} />
-        <Route path="/product-add" element={<Add />} />
+        <Route path="/add-product" element={<Add />} />
       </Route>
     )
   );
