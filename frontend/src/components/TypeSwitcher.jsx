@@ -1,7 +1,7 @@
 import { useState } from "react";
-import SpecialAttribute from "./SpecialAttribute";
+import TypeSpecificFields from "./TypeSpecificFields";
 
-const TypeSwitcher = () => {
+const TypeSwitcher = ({ onInvalid }) => {
   const [type, setType] = useState(null);
 
   const handleTypeChange = (event) => {
@@ -13,11 +13,13 @@ const TypeSwitcher = () => {
     <div className="form-row">
       <label htmlFor="productType">Type Switcher</label>
       <select
-        defaultValue="default"
+        defaultValue=""
         id="productType"
         onChange={handleTypeChange}
+        required
+        onInvalid={onInvalid}
       >
-        <option value="default" disabled hidden>
+        <option value="" disabled hidden>
           Type Switcher
         </option>
         <option value="dvd">DVD</option>
@@ -25,7 +27,7 @@ const TypeSwitcher = () => {
         <option value="book">Book</option>
       </select>
 
-      <SpecialAttribute type={type} />
+      <TypeSpecificFields type={type} onInvalid={onInvalid} />
     </div>
   );
 };

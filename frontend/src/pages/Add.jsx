@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import ProductForm from "../components/ProductFrom";
+import Form from "../components/Form";
 
 export function Add() {
   return (
@@ -19,7 +19,7 @@ export function Add() {
       <main>
         <div className="body">
           <div id="form">
-            <ProductForm />
+            <Form />
           </div>
         </div>
       </main>
