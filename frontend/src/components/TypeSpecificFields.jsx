@@ -13,9 +13,9 @@ const TypeSpecificFields = ({ type, onInvalid }) => {
           name: "size",
           type: "number",
           required: true,
+          description: "Please, provide size",
         },
       ],
-      description: "Please, provide size",
     },
     {
       type: "book",
@@ -26,9 +26,9 @@ const TypeSpecificFields = ({ type, onInvalid }) => {
           id: "weight",
           name: "weight",
           type: "number",
+          description: "Please, provide weight",
         },
       ],
-      description: "Please, provide weight",
     },
     {
       type: "furniture",
@@ -39,6 +39,7 @@ const TypeSpecificFields = ({ type, onInvalid }) => {
           id: "height",
           name: "height",
           type: "number",
+          description: "Please, provide height",
         },
         {
           keyId: 2,
@@ -46,6 +47,7 @@ const TypeSpecificFields = ({ type, onInvalid }) => {
           id: "width",
           name: "width",
           type: "number",
+          description: "Please, provide width",
         },
         {
           keyId: 3,
@@ -53,29 +55,26 @@ const TypeSpecificFields = ({ type, onInvalid }) => {
           id: "length",
           name: "length",
           type: "number",
+          description: "Please, provide length",
         },
       ],
-      description: "Please, provide dimensions",
     },
   ];
 
-  const { fields, description } = types.find((obj) => obj.type === type) ?? [];
+  const { fields } = types.find((obj) => obj.type === type) ?? [];
 
   return (
     <>
-      {fields ? (
-        fields.map((input) => (
-          <FormInput
-            key={input.keyId}
-            label={input.label}
-            {...input}
-            onInvalid={onInvalid}
-          />
-        ))
-      ) : (
-        <></>
-      )}
-      <p>{description}</p>
+      {fields
+        ? fields.map((input) => (
+            <FormInput
+              key={input.keyId}
+              label={input.label}
+              {...input}
+              onInvalid={onInvalid}
+            />
+          ))
+        : null}
     </>
   );
 };

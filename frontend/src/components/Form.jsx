@@ -48,15 +48,19 @@ const Form = () => {
       const fd = new FormData(event.target);
       const fdo = Object.fromEntries(fd.entries());
 
-      fetch("localhost/productlist/backend", {
+      fetch("http://localhost:3333/add-product", {
         method: "POST",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(fdo),
       })
-        .then((response) => `Request succeeded with response: ${response}`)
-        .catch((error) => `Request failed with error: ${error}`);
+        .then((response) => response.json())
+        .then((response) =>
+          console.log(`Request succeeded with response: ${response}`)
+        )
+        .catch((error) => console.log(`Request failed with error: ${error}`));
     }
   };
 

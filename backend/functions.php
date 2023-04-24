@@ -6,3 +6,9 @@ function dd($value)
     var_dump($value);
     die();
 }
+
+function d($value)
+{
+    echo '<pre>';
+    var_dump($value);
+}
