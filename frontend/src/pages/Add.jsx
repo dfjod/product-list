@@ -8,7 +8,9 @@ export function Add() {
         <div className="nav">
           <h1>Product Add</h1>
           <div className="nav-buttons">
-            <Link to="/">Cancel</Link>
+            <Link to="/">
+              <button>Cancel</button>
+            </Link>
             <button type="submit" form="product_form">
               Save
             </button>

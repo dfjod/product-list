@@ -22,7 +22,6 @@ export function List() {
           };
         });
         setProducts(dataArray);
-        console.log(dataArray);
       });
   };
 
@@ -63,7 +62,9 @@ export function List() {
           <h1>Product List</h1>
           <ul>
             <li>
-              <Link to="/add-product">ADD</Link>
+              <Link to="/add-product">
+                <button>ADD</button>
+              </Link>
             </li>
             <li>
               <button onClick={handleMassDelete}>MASS DELETE</button>
