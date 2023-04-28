@@ -4,7 +4,7 @@ const FormInput = (props) => {
   return (
     <div className="form-row">
       <label htmlFor={inputProps.name}>{label}</label>
-      <input {...inputProps} onInvalid={onInvalid} />
+      <input {...inputProps} onInvalid={onInvalid} required />
       {description ?? <p>{description}</p>}
     </div>
   );

@@ -1,18 +1,49 @@
-import { useState } from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Product from "../components/Product";
 
 export function List() {
-  let data = useLoaderData();
-
+  const [products, setProducts] = useState([]);
   const [checkedProducts, setCheckedProducts] = useState([]);
 
+  const fetchProducts = () => {
+    fetch("http://localhost:3333/", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        let dataArray = Object.keys(data).map((key) => {
+          return {
+            id: key,
+            ...data[key],
+          };
+        });
+        setProducts(dataArray);
+        console.log(dataArray);
+      });
+  };
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
   const handleMassDelete = () => {
-    return fetch("localhost/productlist/index.php", {
+    fetch("http://localhost:3333/", {
       method: "DELETE",
-      headers: "Content-Type: application/json",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(checkedProducts),
-    });
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log(`Request succeeded with response: ${response}`);
+        fetchProducts();
+      })
+      .catch((error) => console.log(`Request failed with error: ${error}`));
   };
 
   const handleCheckboxChange = (event) => {
@@ -32,7 +63,7 @@ export function List() {
           <h1>Product List</h1>
           <ul>
             <li>
-              <Link to="/product-add">ADD</Link>
+              <Link to="/add-product">ADD</Link>
             </li>
             <li>
               <button onClick={handleMassDelete}>MASS DELETE</button>
@@ -43,7 +74,7 @@ export function List() {
       <hr />
       <main>
         <div id="product-list">
-          {data.map((product) => {
+          {products.map((product) => {
             return (
               <div className="product" key={product.id}>
                 <input
@@ -64,9 +95,3 @@ export function List() {
     </>
   );
 }
-
-export const productLoader = () => {
-  return fetch("http://localhost/productlist/backend/api/index.php").then(
-    (response) => response.json()
-  );
-};

@@ -11,7 +11,6 @@ const Form = () => {
       id: "sku",
       name: "sku",
       type: "text",
-      required: true,
     },
     {
       keyId: 2,
@@ -19,7 +18,6 @@ const Form = () => {
       id: "name",
       name: "name",
       type: "text",
-      required: true,
     },
     {
       keyId: 3,
@@ -27,7 +25,6 @@ const Form = () => {
       id: "price",
       name: "price",
       type: "number",
-      required: true,
     },
   ];
 
@@ -60,6 +57,7 @@ const Form = () => {
         .then((response) =>
           console.log(`Request succeeded with response: ${response}`)
         )
+        .then(() => (window.location.href = "http://localhost:3000/"))
         .catch((error) => console.log(`Request failed with error: ${error}`));
     }
   };

@@ -1,7 +1,7 @@
 <?php
 
 class Database {
-    public $connection;
+    private $connection;
     
     public function __construct($config, $username, $password)
     {
@@ -20,5 +20,20 @@ class Database {
         $statement->execute($params);
 
         return $statement;
+    }
+
+    public function beginTransaction()
+    {
+        return $this->connection->beginTransaction();
+    }
+
+    public function commit()
+    {
+        return $this->connection->commit();
+    }
+
+    public function lastInsertId()
+    {
+        return $this->connection->lastInsertId();
     }
 }

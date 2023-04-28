@@ -75,6 +75,7 @@ const TypeSpecificFields = ({ type, onInvalid }) => {
             />
           ))
         : null}
+      <input type="text" name="type" value={type} hidden />
     </>
   );
 };
