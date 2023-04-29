@@ -1,9 +1,9 @@
 <?php
 
-require "classes.php";
-$config = require "config.php";
+use Core\App;
+use Product\Product;
 
-$db = new Database($config, "root", "SU1MVSY84NOPGO9W1D9E");
+$db = App::resolve(Core\Database::class);
 
 $productIds = json_decode(file_get_contents("php://input"), true);
 

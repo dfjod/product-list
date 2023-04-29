@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Router {
     protected $routes = [];
     protected $method;
@@ -28,12 +30,6 @@ class Router {
     {
         $this->add($uri, $controller, 'DELETE');
     }
-
-    
-    public function getRoutes()
-    {
-        return $this->routes;
-    }
     
     public function setUri()
     {
@@ -45,16 +41,6 @@ class Router {
         $this->method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
     }
 
-    public function getUri()
-    {
-        return $this->uri;
-    }
-
-    public function getMethod()
-    {
-        return $this->method;
-    }
-
     public function route()
     {
         foreach ($this->routes as $route) {
@@ -62,6 +48,6 @@ class Router {
                 return require $route['controller'];
             }
         }
-        echo "ERROR!";
+        echo "Something went wrong!";
     }
 }
