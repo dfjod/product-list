@@ -7,13 +7,9 @@ $db = App::resolve(Core\Database::class);
 $data = json_decode(file_get_contents("php://input"), true);
 
 $productFactory = CreateFactory::getFactory($data['type']);
-$product = $productFactory->createProductClass($data);
-$product->createProduct($db);
 
-$response = [
-    'status' => 'success',
-    'message' => 'Data received successfully',
-    'data' => $data,
-];
+$product = $productFactory->createProductClass($data);
+
+$response = $product->createProduct($db);
 
 echo json_encode($response);

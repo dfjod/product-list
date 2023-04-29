@@ -1,20 +1,12 @@
 <?php
 
 use Core\App;
-use Product\Product;
+use Product\ProductManager;
 
 $db = App::resolve(Core\Database::class);
 
-$productIds = json_decode(file_get_contents("php://input"), true);
+$manager = new ProductManager();
 
-foreach($productIds as $productId) {
-    Product::deleteProduct($productId, $db);
-}
-
-$response = [
-    'status' => 'success',
-    'message' => 'Data received successfully',
-    'data' => $data,
-];
+$response = $manager->massDeleteProducts($db);
 
 echo json_encode($response);

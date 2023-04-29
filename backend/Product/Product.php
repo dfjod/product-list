@@ -8,7 +8,8 @@ abstract class Product {
     protected $name;
     protected $price;
     const SQL_DELETE = "DELETE FROM products WHERE product_id = :id;";
-    private $sql_create_product = "INSERT INTO products (sku, name, price, category_id) VALUES (:sku, :name, :price, :categoryId);";
+    private $sql_create = "INSERT INTO products (sku, name, price, category_id) VALUES (:sku, :name, :price, :categoryId);";
+    private $sql_sku = "SELECT COUNT(*) FROM products WHERE sku=:sku;";
 
     public function __construct($data)
     {
@@ -17,26 +18,31 @@ abstract class Product {
         $this->price = $data['price'];
     }
 
-    public function getId()
+    public function validateSku($db)
     {
-        return $this->id;
+        $count = $db->query($this->sql_sku, [
+            'sku' => $this->sku,
+        ]);
+        return $count === 0;
     }
 
     protected function create($db, $categoryId)
     {
-        $db->query($this->sql_create_product, [
+        if(! $this->validateSku($db))
+        {
+            return [
+                'success' => false,
+                'message' => 'The SKU already exists!'
+            ];
+        }
+
+        $db->query($this->sql_create, [
             'sku' => $this->sku,
             'name' => $this->name,
             'price' => $this->price,
             'categoryId' => $categoryId,
         ]);
-        $this->id = $db->lastInsertId();
-    }
 
-    public static function deleteProduct($productId, $database)
-    {
-        $database->query(Product::SQL_DELETE, [
-            'id' => $productId,
-        ]);
+        $this->id = $db->lastInsertId();
     }
 }
