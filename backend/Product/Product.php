@@ -22,13 +22,16 @@ abstract class Product {
     {
         $count = $db->query($this->sql_sku, [
             'sku' => $this->sku,
-        ]);
+        ])->fetch()['COUNT(*)'];
+        
         return $count === 0;
     }
 
     protected function create($db, $categoryId)
     {
-        if(! $this->validateSku($db))
+        $skuValid = $this->validateSku($db);
+
+        if(!$skuValid)
         {
             return [
                 'success' => false,
@@ -44,5 +47,20 @@ abstract class Product {
         ]);
 
         $this->id = $db->lastInsertId();
+
+        return [
+            'success' => true,
+        ];
+    }
+
+    protected function createAttributes($attributes, $db)
+    {
+        foreach($attributes as $attribute) {
+            $db->query("INSERT INTO special_values (product_id, attribute_id, value) VALUES (:id, :attributeId, :value);", [
+                'id' => $this->id,
+                'attributeId' => $attribute['attributeId'],
+                'value' => $attribute['attributeValue'],
+            ]);
+        }
     }
 }

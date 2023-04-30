@@ -54,11 +54,14 @@ const Form = () => {
         body: JSON.stringify(fdo),
       })
         .then((response) => response.json())
-        .then((response) =>
-          console.log(`Request succeeded with response: ${response}`)
-        )
+        .then((response) => {
+          if (!response.success) {
+            setErrorMessage(response.message);
+            throw new Error("SKU already exists");
+          }
+        })
         .then(() => (window.location.href = "http://localhost:3000/"))
-        .catch((error) => console.log(`Request failed with error: ${error}`));
+        .catch((error) => console.log(`${error}`));
     }
   };
 

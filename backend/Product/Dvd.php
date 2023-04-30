@@ -25,14 +25,16 @@ class Dvd extends Product {
     public function createProduct($db)
     {
         $db->beginTransaction();
-        parent::create($db, $this->categoryId);
-        foreach($this->attributes as $attribute) {
-            $db->query("INSERT INTO special_values (product_id, attribute_id, value) VALUES (:id, :attributeId, :value);", [
-                'id' => $this->id,
-                'attributeId' => $attribute['attributeId'],
-                'value' => $attribute['attributeValue'],
-            ]);
+
+        $success = parent::create($db, $this->categoryId);
+
+        if(! $success['success']) {
+            echo json_encode($success);
+            die;
         }
+        
+        $this->createAttributes($this->attributes, $db);
+
         $db->commit();
     }
 }

@@ -30,6 +30,11 @@ class Router {
     {
         $this->add($uri, $controller, 'DELETE');
     }
+
+    public function options($uri, $controller)
+    {
+        $this->add($uri, $controller, 'OPTIONS');
+    }
     
     public function setUri()
     {
@@ -41,6 +46,11 @@ class Router {
         $this->method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
     }
 
+    protected function abort()
+    {
+        echo '404 page not found!';
+    }
+
     public function route()
     {
         foreach ($this->routes as $route) {
@@ -48,6 +58,6 @@ class Router {
                 return require $route['controller'];
             }
         }
-        echo "Something went wrong!";
+        $this->abort();
     }
 }
