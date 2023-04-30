@@ -1,45 +1,136 @@
-.nav {
-  height: 10vh;
-  width: auto;
+* {
+  box-sizing: border-box;
 }
 
-.body {
-  height: 80vh;
-  width: auto;
+body {
+  margin: 0;
+  padding: 0;
+  height: auto;
 }
 
-.footer {
-  height: 10vh;
-  width: auto;
+header {
+  background-color: #e9e9ed;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 2;
 }
 
-.form-row {
-  margin-bottom: 10px;
+main {
+  background-color: white;
+  margin-top: 80px;
 }
 
-.form-row > label {
-  margin-right: 10px;
+footer {
+  background-color: #e9e9ed;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+}
+
+footer p {
+  font-size: 1rem;
 }
 
 .nav {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: stretch;
+  gap: 2rem;
+  padding: 0 1rem;
+  height: 100%;
 }
 
-.nav-buttons {
-  width: auto;
+.nav-title {
+  font-size: 2rem;
 }
 
-.nav-buttons > a {
-  margin-right: 20px;
+.nav ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+
+.nav ul button {
+  font-size: 1rem;
+  width: 6rem;
+  border: none;
+  height: 100%;
 }
 
 #product-list {
   display: flex;
-  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 0;
 }
 
 .product {
-  border: solid 1px black;
+  background-color: #e9e9ed;
+  width: 13rem;
+}
+
+.clickable-container {
+  position: relative;
+  display: block;
+}
+
+.delete-checkbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.product-information {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.product-information p {
+  margin: 0.6rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.form-row {
+  display: flex;
+  gap: 7rem;
+  margin: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-row.description {
+  margin-top: 0;
+  font-size: 0.85rem;
+}
+
+.form-error p {
+  text-align: center;
+  color: red;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
 }

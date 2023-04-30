@@ -8,6 +8,7 @@ class Dvd extends Product {
         'size' => [
             'attributeId' => 1,
             'attributeValue' => null,
+            'attributeMeasurement' => 'MB',
         ],
     ];
 
@@ -36,5 +37,10 @@ class Dvd extends Product {
         $this->createAttributes($this->attributes, $db);
 
         $db->commit();
+
+        return [
+            'success' => true,
+            'message' => "Product stored!"
+        ];
     }
 }

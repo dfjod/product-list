@@ -3,12 +3,13 @@
 namespace Product;
 
 class Book extends Product {
-    protected $CATEGORY_ID = 3;
+    protected $categoryId = 3;
     protected $sql_add_attributes = 1;
     protected $attributes = [
         'weight' => [
             'attributeId' => 2,
             'attributeValue' => null,
+            'attributeMeasurement' => "KG",
         ]
     ];
 
@@ -21,14 +22,21 @@ class Book extends Product {
     public function createProduct($db)
     {
         $db->beginTransaction();
-        parent::create($db, $this->CATEGORY_ID);
-        foreach($this->attributes as $attribute) {
-            $db->query("INSERT INTO special_values (product_id, attribute_id, value) VALUES (:id, :attributeId, :value);", [
-                'id' => $this->id,
-                'attributeId' => $attribute['attributeId'],
-                'value' => $attribute['attributeValue'],
-            ]);
+
+        $success = parent::create($db, $this->categoryId);
+
+        if(! $success['success']) {
+            echo json_encode($success);
+            die;
         }
+        
+        $this->createAttributes($this->attributes, $db);
+
         $db->commit();
+
+        return [
+            'success' => true,
+            'message' => "Product stored!"
+        ];
     }
 }

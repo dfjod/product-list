@@ -6,26 +6,26 @@ export function Add() {
     <>
       <header>
         <div className="nav">
-          <h1>Product Add</h1>
-          <div className="nav-buttons">
-            <Link to="/">
-              <button>Cancel</button>
-            </Link>
-            <button type="submit" form="product_form">
-              Save
-            </button>
-          </div>
+          <h1 className="nav-title">Product Add</h1>
+          <ul>
+            <li>
+              <Link to="/">
+                <button>Cancel</button>
+              </Link>
+            </li>
+            <li>
+              <button type="submit" form="product_form">
+                Save
+              </button>
+            </li>
+          </ul>
         </div>
       </header>
-      <hr />
       <main>
-        <div className="body">
-          <div id="form">
-            <Form />
-          </div>
+        <div className="form">
+          <Form />
         </div>
       </main>
-      <hr />
       <footer>
         <div className="footer">
           <p>Scandiweb test assignment</p>

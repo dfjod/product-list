@@ -3,7 +3,7 @@
 namespace Product;
 
 class Furniture extends Product {
-    protected $CATEGORY_ID = 2;
+    protected $categoryId = 2;
     protected $attributes = [
         'height' => [
             'attributeId' => 3,
@@ -30,14 +30,21 @@ class Furniture extends Product {
     public function createProduct($db)
     {
         $db->beginTransaction();
-        parent::create($db, $this->CATEGORY_ID);
-        foreach($this->attributes as $attribute) {
-            $db->query("INSERT INTO special_values (product_id, attribute_id, value) VALUES (:id, :attributeId, :value);", [
-                'id' => $this->id,
-                'attributeId' => $attribute['attributeId'],
-                'value' => $attribute['attributeValue'],
-            ]);
+
+        $success = parent::create($db, $this->categoryId);
+
+        if(! $success['success']) {
+            echo json_encode($success);
+            die;
         }
+        
+        $this->createAttributes($this->attributes, $db);
+
         $db->commit();
+        
+        return [
+            'success' => true,
+            'message' => "Product stored!"
+        ];
     }
 }

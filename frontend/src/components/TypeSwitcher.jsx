@@ -10,25 +10,27 @@ const TypeSwitcher = ({ onInvalid }) => {
   };
 
   return (
-    <div className="form-row">
-      <label htmlFor="productType">Type Switcher</label>
-      <select
-        defaultValue=""
-        id="productType"
-        onChange={handleTypeChange}
-        required
-        onInvalid={onInvalid}
-      >
-        <option value="" disabled hidden>
-          Type Switcher
-        </option>
-        <option value="dvd">DVD</option>
-        <option value="furniture">Furniture</option>
-        <option value="book">Book</option>
-      </select>
+    <>
+      <div className="form-row">
+        <label htmlFor="productType">Type Switcher</label>
+        <select
+          defaultValue=""
+          id="productType"
+          onChange={handleTypeChange}
+          required
+          onInvalid={onInvalid}
+        >
+          <option value="" disabled hidden>
+            Type Switcher
+          </option>
+          <option value="dvd">DVD</option>
+          <option value="furniture">Furniture</option>
+          <option value="book">Book</option>
+        </select>
+      </div>
 
       <TypeSpecificFields type={type} onInvalid={onInvalid} />
-    </div>
+    </>
   );
 };
 

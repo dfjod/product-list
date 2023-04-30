@@ -39,10 +39,10 @@ export function List() {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(`Request succeeded with response: ${response}`);
+        console.log(`${response.message}`);
         fetchProducts();
       })
-      .catch((error) => console.log(`Request failed with error: ${error}`));
+      .catch((error) => console.log(`${error}`));
   };
 
   const handleCheckboxChange = (event) => {
@@ -59,38 +59,42 @@ export function List() {
     <>
       <header>
         <div className="nav">
-          <h1>Product List</h1>
+          <h1 className="nav-title">Product List</h1>
           <ul>
             <li>
               <Link to="/add-product">
-                <button>ADD</button>
+                <button>Add</button>
               </Link>
             </li>
             <li>
-              <button onClick={handleMassDelete}>MASS DELETE</button>
+              <button onClick={handleMassDelete}>Mass Delete</button>
             </li>
           </ul>
         </div>
       </header>
-      <hr />
       <main>
-        <div id="product-list">
-          {products.map((product) => {
-            return (
-              <div className="product" key={product.id}>
-                <input
-                  type="checkbox"
-                  value={product.id}
-                  onChange={handleCheckboxChange}
-                />
-                <Product product={product} />
-              </div>
-            );
-          })}
+        <div className="container">
+          <div id="product-list">
+            {products.map((product) => {
+              return (
+                <div className="product" key={product.id}>
+                  <label className="clickable-container">
+                    <input
+                      type="checkbox"
+                      value={product.id}
+                      className="delete-checkbox"
+                      id={product.id}
+                      onChange={handleCheckboxChange}
+                    />
+                    <Product product={product} />
+                  </label>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </main>
       <footer>
-        <hr />
         <p>Scandiweb test assignment</p>
       </footer>
     </>

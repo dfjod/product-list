@@ -1,5 +1,6 @@
 const Product = ({ product }) => {
-  const { sku, name, price, category, ...specialAttributes } = product;
+  const { sku, name, price, category, id, measurement, ...specialAttributes } =
+    product;
 
   const handleSpecialAttributes = () => {
     if (category === "furniture") {
@@ -12,19 +13,19 @@ const Product = ({ product }) => {
     } else {
       return Object.entries(specialAttributes).map(([label, value], index) => (
         <p key={index}>
-          {label.charAt(0).toUpperCase() + label.slice(1)}:{value}
+          {label.charAt(0).toUpperCase() + label.slice(1)}:{value} {measurement}
         </p>
       ));
     }
   };
 
   return (
-    <>
+    <div className="product-information">
       <p>{sku}</p>
       <p>{name}</p>
       <p>{price} $</p>
       {handleSpecialAttributes()}
-    </>
+    </div>
   );
 };
 

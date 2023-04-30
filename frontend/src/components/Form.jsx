@@ -25,6 +25,7 @@ const Form = () => {
       id: "price",
       name: "price",
       type: "number",
+      min: 0,
     },
   ];
 
@@ -34,6 +35,8 @@ const Form = () => {
       setErrorMessage("Please, submit required data");
     } else if (validityState.badInput) {
       setErrorMessage("Please, provide the data of indicated type");
+    } else if (validityState.rangeUnderflow) {
+      setErrorMessage("Negative values are not allowed");
     }
   };
 
@@ -59,8 +62,9 @@ const Form = () => {
             setErrorMessage(response.message);
             throw new Error("SKU already exists");
           }
+          console.log(response.message);
+          window.location.href = "/";
         })
-        .then(() => (window.location.href = "http://localhost:3000/"))
         .catch((error) => console.log(`${error}`));
     }
   };
@@ -68,13 +72,15 @@ const Form = () => {
   return (
     <>
       <form id="product_form" onSubmit={handleSubmit} noValidate>
-        {inputs.map((input) => (
-          <FormInput key={input.keyId} onInvalid={handleInvalid} {...input} />
-        ))}
-        <TypeSwitcher onInvalid={handleInvalid} />
+        <div className="input-fields">
+          {inputs.map((input) => (
+            <FormInput key={input.keyId} onInvalid={handleInvalid} {...input} />
+          ))}
+          <TypeSwitcher onInvalid={handleInvalid} />
+        </div>
       </form>
-      {errorMessage ?? (
-        <div>
+      {errorMessage && (
+        <div className="form-error">
           <p>{errorMessage}</p>
         </div>
       )}

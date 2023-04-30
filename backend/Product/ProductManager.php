@@ -5,7 +5,7 @@ namespace Product;
 class ProductManager
 {
     private $products_query = "SELECT p.product_id, p.sku, p.name, p.price, c.category_name FROM products p JOIN categories c ON p.category_id = c.category_id;";
-    private $special_values_query = "SELECT sv.product_id, sa.attribute_label, sv.value FROM special_values sv JOIN special_attributes sa ON sv.attribute_id = sa.attribute_id;"; 
+    private $special_values_query = "SELECT sv.product_id, sa.attribute_label, sa.attribute_measurement, sv.value FROM special_values sv JOIN special_attributes sa ON sv.attribute_id = sa.attribute_id;"; 
 
     protected function getProducts($db)
     {
@@ -38,6 +38,7 @@ class ProductManager
                 if($product['product_id'] === $specialValue['product_id']) {
                     $productsList[$product['product_id']] = array_merge($productsList[$product['product_id']], [
                         $specialValue['attribute_label'] => $specialValue['value'],
+                        'measurement' => $specialValue['attribute_measurement'],
                     ]);
                 }
             }
