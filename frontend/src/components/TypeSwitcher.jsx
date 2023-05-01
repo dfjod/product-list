@@ -12,7 +12,9 @@ const TypeSwitcher = ({ onInvalid }) => {
   return (
     <>
       <div className="form-row">
-        <label htmlFor="productType">Type Switcher</label>
+        <label htmlFor="productType">
+          Type Switcher<span className="required">*</span>
+        </label>
         <select
           defaultValue=""
           id="productType"

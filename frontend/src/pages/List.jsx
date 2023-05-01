@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Product from "../components/Product";
+import Footer from "../components/Footer";
 
 export function List() {
   const [products, setProducts] = useState([]);
   const [checkedProducts, setCheckedProducts] = useState([]);
 
   const fetchProducts = () => {
-    fetch("http://localhost:3333/", {
+    fetch("https://coolproductlist.000webhostapp.com/api/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -30,12 +31,12 @@ export function List() {
   }, []);
 
   const handleMassDelete = () => {
-    fetch("http://localhost:3333/", {
-      method: "DELETE",
+    fetch("https://coolproductlist.000webhostapp.com/api/", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(checkedProducts),
+      body: JSON.stringify({ _method: "DELETE", ids: checkedProducts }),
     })
       .then((response) => response.json())
       .then((response) => {
@@ -63,11 +64,13 @@ export function List() {
           <ul>
             <li>
               <Link to="/add-product">
-                <button>Add</button>
+                <button>ADD</button>
               </Link>
             </li>
             <li>
-              <button onClick={handleMassDelete}>Mass Delete</button>
+              <button onClick={handleMassDelete} id="delete-product-btn">
+                MASS DELETE
+              </button>
             </li>
           </ul>
         </div>
@@ -94,9 +97,7 @@ export function List() {
           </div>
         </div>
       </main>
-      <footer>
-        <p>Scandiweb test assignment</p>
-      </footer>
+      <Footer />
     </>
   );
 }

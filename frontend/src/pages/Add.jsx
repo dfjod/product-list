@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer";
 import Form from "../components/Form";
 
 export function Add() {
@@ -26,11 +27,7 @@ export function Add() {
           <Form />
         </div>
       </main>
-      <footer>
-        <div className="footer">
-          <p>Scandiweb test assignment</p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

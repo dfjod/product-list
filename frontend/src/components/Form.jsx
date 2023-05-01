@@ -48,7 +48,7 @@ const Form = () => {
       const fd = new FormData(event.target);
       const fdo = Object.fromEntries(fd.entries());
 
-      fetch("http://localhost:3333/add-product", {
+      fetch("https://coolproductlist.000webhostapp.com/api/add-product", {
         method: "POST",
         mode: "cors",
         headers: {

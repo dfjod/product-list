@@ -6,6 +6,7 @@ const FormInput = (props) => {
       <div className="form-row">
         <label htmlFor={inputProps.name} className="form-label">
           {label}
+          <span className="required">*</span>
         </label>
         <input
           className="form-input"
