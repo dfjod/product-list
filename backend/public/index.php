@@ -2,6 +2,11 @@
 
 const BASE_PATH = __DIR__ . '/../';
 
+// header('Content-Type: application/json');
+// header('Access-Control-Allow-Origin: https://coolproductlist.000webhostapp.com/');
+// header('Access-Control-Allow-Methods: POST, GET');
+// header('Access-Control-Allow-Headers: Content-Type');
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');

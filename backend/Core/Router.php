@@ -43,7 +43,7 @@ class Router {
 
     public function setMethod()
     {
-        $this->method = $_POST['_method'] ?? $_SERVER['REQUEST_METHOD'];
+        $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->method = json_decode(file_get_contents('php://input'), true)['_method'] ?? 'POST':$this->method = $_SERVER['REQUEST_METHOD'];
     }
 
     protected function abort()

@@ -10,6 +10,7 @@ abstract class Product {
     const SQL_DELETE = "DELETE FROM products WHERE product_id = :id;";
     private $sql_create = "INSERT INTO products (sku, name, price, category_id) VALUES (:sku, :name, :price, :categoryId);";
     private $sql_sku = "SELECT COUNT(*) FROM products WHERE sku=:sku;";
+    private $sql_attributes = "INSERT INTO special_values (product_id, attribute_id, value) VALUES (:id, :attributeId, :value);";
 
     public function __construct($data)
     {
@@ -23,8 +24,8 @@ abstract class Product {
         $count = $db->query($this->sql_sku, [
             'sku' => $this->sku,
         ])->fetch()['COUNT(*)'];
-        
-        return $count === 0;
+
+        return $count == 0;
     }
 
     protected function create($db, $categoryId)
@@ -56,7 +57,7 @@ abstract class Product {
     protected function createAttributes($attributes, $db)
     {
         foreach($attributes as $attribute) {
-            $db->query("INSERT INTO special_values (product_id, attribute_id, value) VALUES (:id, :attributeId, :value);", [
+            $db->query($this->sql_attributes, [
                 'id' => $this->id,
                 'attributeId' => $attribute['attributeId'],
                 'value' => $attribute['attributeValue'],

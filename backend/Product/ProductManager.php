@@ -55,7 +55,7 @@ class ProductManager
 
     public function massDeleteProducts($db)
     {
-        $productIds = $this->getIds();
+        $productIds = $this->getIds()['ids'];
         foreach($productIds as $productId) {
             $this->deleteProduct($productId, $db);
         }
