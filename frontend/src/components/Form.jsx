@@ -1,10 +1,25 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FormInput from "./FormInput";
 import TypeSwitcher from "./TypeSwitcher";
-import { origin } from "../utils/url";
+import { origin } from "../utils/origin";
 
 const Form = () => {
   const [errorMessage, setErrorMessage] = useState("");
+  let inputs;
+
+  const fetchInputs = async () => {
+    const response = await fetch(`${origin}/add-product`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+  };
+
+  useEffect(() => {
+    inputs = fetchInputs();
+  }, []);
 
   const handleInvalid = (event) => {
     const validityState = event.target.validity;
@@ -72,7 +87,7 @@ const Form = () => {
             min="0"
             onInvalid={handleInvalid}
           />
-          <TypeSwitcher onInvalid={handleInvalid} />
+          <TypeSwitcher onInvalid={handleInvalid} inputs={inputs} />
         </div>
       </form>
       {errorMessage && (

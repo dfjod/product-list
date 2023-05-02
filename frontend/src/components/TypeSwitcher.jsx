@@ -3,14 +3,14 @@ import Book from "./Book";
 import Dvd from "./Dvd";
 import Furniture from "./Furniture";
 
-const TypeSwitcher = ({ onInvalid }) => {
+const TypeSwitcher = ({ onInvalid, inputs }) => {
   const [type, setType] = useState(null);
 
   const handleTypeChange = (event) => {
     const { value } = event.target;
     setType(value);
   };
-
+  console.log(inputs);
   return (
     <>
       <div className="form-row">

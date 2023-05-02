@@ -27,6 +27,7 @@ class ProductManager
         $productsList = [];
         $products = $this->getProducts($db);
         $specialValues = $this->getSpecialValues($db);
+        
         foreach($products as $product) {
             $productsList[$product['product_id']] = [
                 'sku' => $product['sku'],
@@ -34,12 +35,15 @@ class ProductManager
                 'price' => $product['price'],
                 'category' => $product['category_name'],
             ];
-            foreach($specialValues as $specialValue) {
+
+            foreach($specialValues as $key => $specialValue) {
                 if($product['product_id'] === $specialValue['product_id']) {
                     $productsList[$product['product_id']] = array_merge($productsList[$product['product_id']], [
                         $specialValue['attribute_label'] => $specialValue['value'],
                         'measurement' => $specialValue['attribute_measurement'],
                     ]);
+
+                    unset($specialValue[$key]);
                 }
             }
         }

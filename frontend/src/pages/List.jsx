@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Product from "../components/Product";
 import Footer from "../components/Footer";
-import { origin } from "../utils/url";
+import { origin } from "../utils/origin";
 
 export function List() {
   const [products, setProducts] = useState([]);
