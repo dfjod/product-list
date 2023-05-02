@@ -58,8 +58,8 @@ const Form = () => {
       });
       const data = await response.json();
       if (!data.success) {
-        setErrorMessage(response.message);
-        return "SKU already exists";
+        setErrorMessage(data.message);
+        return;
       }
       console.log(response.message);
       window.location.href = "/";

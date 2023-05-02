@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ProductInput from "./ProductInput";
+import FormInput from "./FormInput";
 
 const TypeSwitcher = ({ onInvalid, inputs }) => {
   const [category, setCategory] = useState(null);
@@ -8,6 +8,12 @@ const TypeSwitcher = ({ onInvalid, inputs }) => {
     const { value } = event.target;
     setCategory(value);
   };
+
+  const categories = inputs.flatMap((attribute) =>
+    Object.entries(attribute)
+      .filter(([key]) => key === "category")
+      .map(([key, value]) => value)
+  );
 
   return (
     <>
@@ -25,20 +31,34 @@ const TypeSwitcher = ({ onInvalid, inputs }) => {
           <option value="" disabled hidden>
             Type Switcher
           </option>
-          <option value="dvd">DVD</option>
-          <option value="furniture">Furniture</option>
-          <option value="book">Book</option>
+          {categories.map((category, index) => (
+            <option key={index} value={category.toLowerCase()}>
+              {category}
+            </option>
+          ))}
         </select>
       </div>
       {inputs
-        .filter((obj) => obj.category === category)
+        .filter((obj) => obj.category.toLowerCase() === category)
         .flatMap((attribute) =>
           Object.entries(attribute)
             .filter(([key]) => key !== "category")
-            .map(([key, value], index) => (
-              <ProductInput key={index} {...value} />
+            .map(([key, attribute], index) => (
+              <FormInput
+                key={index}
+                label={`${attribute.label}(${attribute.measurement})`}
+                id={attribute.label}
+                name={attribute.label}
+                type={attribute.type}
+                min={attribute.type === "number" ? "0" : ""}
+                description={attribute.description}
+                onInvalid={onInvalid}
+              />
             ))
         )}
+      <div className="form-row">
+        <input type="text" name="type" defaultValue={category} hidden />
+      </div>
     </>
   );
 };

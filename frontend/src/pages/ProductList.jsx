@@ -4,7 +4,7 @@ import Product from "../components/Product";
 import Footer from "../components/Footer";
 import { origin } from "../utils/origin";
 
-export function List() {
+export function ProductList() {
   const [products, setProducts] = useState([]);
   const [checkedProducts, setCheckedProducts] = useState([]);
 

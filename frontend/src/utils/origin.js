@@ -1,1 +1,1 @@
-export const origin = "http://localhost:3333";
+export const origin = "https://coolproductlist.000webhostapp.com/api";

@@ -3,7 +3,7 @@ const Product = ({ product }) => {
     product;
 
   const handleSpecialAttributes = () => {
-    if (category === "furniture") {
+    if (category.toLowerCase() === "furniture") {
       return (
         <p>
           Dimension:{specialAttributes.height}x{specialAttributes.width}x
