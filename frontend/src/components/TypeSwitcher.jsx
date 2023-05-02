@@ -1,16 +1,14 @@
 import { useState } from "react";
-import Book from "./Book";
-import Dvd from "./Dvd";
-import Furniture from "./Furniture";
+import ProductInput from "./ProductInput";
 
 const TypeSwitcher = ({ onInvalid, inputs }) => {
-  const [type, setType] = useState(null);
+  const [category, setCategory] = useState(null);
 
-  const handleTypeChange = (event) => {
+  const handleCategoryChange = (event) => {
     const { value } = event.target;
-    setType(value);
+    setCategory(value);
   };
-  console.log(inputs);
+
   return (
     <>
       <div className="form-row">
@@ -20,7 +18,7 @@ const TypeSwitcher = ({ onInvalid, inputs }) => {
         <select
           defaultValue=""
           id="productType"
-          onChange={handleTypeChange}
+          onChange={handleCategoryChange}
           required
           onInvalid={onInvalid}
         >
@@ -32,9 +30,15 @@ const TypeSwitcher = ({ onInvalid, inputs }) => {
           <option value="book">Book</option>
         </select>
       </div>
-      {type === "dvd" && <Dvd />}
-      {type === "furniture" && <Furniture />}
-      {type === "book" && <Book />}
+      {inputs
+        .filter((obj) => obj.category === category)
+        .flatMap((attribute) =>
+          Object.entries(attribute)
+            .filter(([key]) => key !== "category")
+            .map(([key, value], index) => (
+              <ProductInput key={index} {...value} />
+            ))
+        )}
     </>
   );
 };

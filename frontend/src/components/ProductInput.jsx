@@ -1,8 +1,9 @@
+import FormInput from "./FormInput";
+
 const ProductInput = (props) => {
   return (
     <>
       <FormInput
-        key={props.key}
         label={`${props.label}(${props.measurement})`}
         id={props.label}
         name={props.label}

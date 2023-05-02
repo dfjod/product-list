@@ -5,7 +5,7 @@ import { origin } from "../utils/origin";
 
 const Form = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  let inputs;
+  const [inputs, setInputs] = useState([]);
 
   const fetchInputs = async () => {
     const response = await fetch(`${origin}/add-product`, {
@@ -15,10 +15,18 @@ const Form = () => {
       },
     });
     const data = await response.json();
+    const dataArray = Object.keys(data).map((key) => {
+      return {
+        category: key,
+        ...data[key],
+      };
+    });
+
+    setInputs(dataArray);
   };
 
   useEffect(() => {
-    inputs = fetchInputs();
+    fetchInputs();
   }, []);
 
   const handleInvalid = (event) => {
