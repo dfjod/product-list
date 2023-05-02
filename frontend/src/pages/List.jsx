@@ -2,48 +2,44 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Product from "../components/Product";
 import Footer from "../components/Footer";
+import { origin } from "../utils/url";
 
 export function List() {
   const [products, setProducts] = useState([]);
   const [checkedProducts, setCheckedProducts] = useState([]);
 
-  const fetchProducts = () => {
-    fetch("https://coolproductlist.000webhostapp.com/api/", {
+  const fetchProducts = async () => {
+    const response = await fetch(`${origin}/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
       },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        let dataArray = Object.keys(data).map((key) => {
-          return {
-            id: key,
-            ...data[key],
-          };
-        });
-        setProducts(dataArray);
-      });
+    });
+    const data = await response.json();
+    const dataArray = Object.keys(data).map((key) => {
+      return {
+        id: key,
+        ...data[key],
+      };
+    });
+    setProducts(dataArray);
   };
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
-  const handleMassDelete = () => {
-    fetch("https://coolproductlist.000webhostapp.com/api/", {
+  const handleMassDelete = async () => {
+    const response = await fetch(`${origin}/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ _method: "DELETE", ids: checkedProducts }),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log(`${response.message}`);
-        fetchProducts();
-      })
-      .catch((error) => console.log(`${error}`));
+    });
+    const data = await response.json();
+    console.log(data.message);
+    fetchProducts();
   };
 
   const handleCheckboxChange = (event) => {

@@ -1,33 +1,10 @@
 import { useState } from "react";
 import FormInput from "./FormInput";
 import TypeSwitcher from "./TypeSwitcher";
+import { origin } from "../utils/url";
 
 const Form = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const inputs = [
-    {
-      keyId: 1,
-      label: "SKU",
-      id: "sku",
-      name: "sku",
-      type: "text",
-    },
-    {
-      keyId: 2,
-      label: "Name",
-      id: "name",
-      name: "name",
-      type: "text",
-    },
-    {
-      keyId: 3,
-      label: "Price($)",
-      id: "price",
-      name: "price",
-      type: "number",
-      min: 0,
-    },
-  ];
 
   const handleInvalid = (event) => {
     const validityState = event.target.validity;
@@ -40,7 +17,7 @@ const Form = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const isValid = event.target.checkValidity();
 
@@ -48,24 +25,21 @@ const Form = () => {
       const fd = new FormData(event.target);
       const fdo = Object.fromEntries(fd.entries());
 
-      fetch("https://coolproductlist.000webhostapp.com/api/add-product", {
+      const response = await fetch(`${origin}/add-product`, {
         method: "POST",
         mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(fdo),
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          if (!response.success) {
-            setErrorMessage(response.message);
-            throw new Error("SKU already exists");
-          }
-          console.log(response.message);
-          window.location.href = "/";
-        })
-        .catch((error) => console.log(`${error}`));
+      });
+      const data = await response.json();
+      if (!data.success) {
+        setErrorMessage(response.message);
+        return "SKU already exists";
+      }
+      console.log(response.message);
+      window.location.href = "/";
     }
   };
 
@@ -73,9 +47,31 @@ const Form = () => {
     <>
       <form id="product_form" onSubmit={handleSubmit} noValidate>
         <div className="input-fields">
-          {inputs.map((input) => (
-            <FormInput key={input.keyId} onInvalid={handleInvalid} {...input} />
-          ))}
+          <FormInput
+            key="1"
+            label="SKU"
+            id="sku"
+            name="sku"
+            type="text"
+            onInvalid={handleInvalid}
+          />
+          <FormInput
+            key="2"
+            label="Name"
+            id="name"
+            name="name"
+            type="text"
+            onInvalid={handleInvalid}
+          />
+          <FormInput
+            key="3"
+            label="Price"
+            id="price"
+            name="price"
+            type="number"
+            min="0"
+            onInvalid={handleInvalid}
+          />
           <TypeSwitcher onInvalid={handleInvalid} />
         </div>
       </form>

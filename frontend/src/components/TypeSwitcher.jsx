@@ -1,5 +1,7 @@
 import { useState } from "react";
-import TypeSpecificFields from "./TypeSpecificFields";
+import Book from "./Book";
+import Dvd from "./Dvd";
+import Furniture from "./Furniture";
 
 const TypeSwitcher = ({ onInvalid }) => {
   const [type, setType] = useState(null);
@@ -30,8 +32,9 @@ const TypeSwitcher = ({ onInvalid }) => {
           <option value="book">Book</option>
         </select>
       </div>
-
-      <TypeSpecificFields type={type} onInvalid={onInvalid} />
+      {type === "dvd" && <Dvd />}
+      {type === "furniture" && <Furniture />}
+      {type === "book" && <Book />}
     </>
   );
 };
